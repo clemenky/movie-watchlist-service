@@ -1,6 +1,7 @@
 import zmq
 import json
 from watchlist_client import API_ENDPOINTS
+from config import MOVIE_WATCHLIST_PORT
 
 
 def process_request(request):
@@ -36,7 +37,7 @@ def process_request(request):
 def main():
     context = zmq.Context()
     socket = context.socket(zmq.REP)
-    socket.bind('tcp://*:5556')
+    socket.bind(f'tcp://*:{MOVIE_WATCHLIST_PORT}')
 
     print('Microservice movie-watchlist-service is running...')
 

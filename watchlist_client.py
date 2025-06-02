@@ -18,16 +18,16 @@ def save_watchlist(watchlist):
     with open(WATCHLIST_FILE, 'w') as file:
         json.dump(watchlist, file)
 
-def add_movie(movie_id, movie_title, movie_year):
+def add_movie(movie_id, movie_details):
     watchlist = load_watchlist()
-    movie = {'id': movie_id, 'title': movie_title, 'year': movie_year}
+    movie = {'movie_id': movie_id, 'movie_details': movie_details}
     watchlist.append(movie)
     save_watchlist(watchlist)
-    return f'Movie {movie_title} ({movie_year}) added.'
+    return f'Movie with id {movie_id} added.'
 
 def delete_movie(movie_id):
     watchlist = load_watchlist()
-    updated_watchlist = [movie for movie in watchlist if movie['id'] != movie_id]
+    updated_watchlist = [movie for movie in watchlist if movie['movie_id'] != movie_id]
     if len(updated_watchlist) == len(watchlist):
         return f'Movie with ID {movie_id} not found.'
     save_watchlist(updated_watchlist)
@@ -41,7 +41,7 @@ def list_movies():
 API_ENDPOINTS = {
     'add_movie': {
         'function': add_movie,
-        'required_params': ['movie_id', 'movie_title', 'movie_year']
+        'required_params': ['movie_id', 'movie_details']
     },
     'delete_movie': {
         'function': delete_movie,
